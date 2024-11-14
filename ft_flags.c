@@ -1,53 +1,43 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_flags.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: enpassel <enpassel@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/14 14:51:30 by enpassel          #+#    #+#             */
+/*   Updated: 2024/11/14 15:36:03 by enpassel         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-void ft_parse_flags(const char **format, int *width, int *precision, int *left_align, int *zero_pad)
+void	ft_parse_flags(const char **format, int *width, t_left_and_zero *laf)
 {
-    *left_align = 0;
-    *zero_pad = 0;
-    *width = 0;
-    *precision = -1;
-
-    while (**format == '-' || **format == '0')
-    {
-        if (**format == '-')
-            *left_align = 1;
-        if (**format == '0')
-            *zero_pad = 1;
-        (*format)++;
-    }
-    ft_parse_width_precision(format, width, precision);
+	laf->left_align = 0;
+	laf->zero_pad = 0;
+	*width = 0;
+	while (**format == '-' || **format == '0')
+	{
+		if (**format == '-')
+			laf->left_align = 1;
+		if (**format == '0')
+			laf->zero_pad = 1;
+		(*format)++;
+	}
 }
 
-void ft_parse_width_precision(const char **format, int *width, int *precision)
+void	ft_handle_padding(int width, int len, int left_align, int zero_pad)
 {
-    while (**format >= '0' && **format <= '9')
-    {
-        *width = *width * 10 + (**format - '0');
-        (*format)++;
-    }
-    if (**format == '.')
-    {
-        (*format)++;
-        *precision = 0;
-        while (**format >= '0' && **format <= '9')
-        {
-            *precision = *precision * 10 + (**format - '0');
-            (*format)++;
-        }
-    }
-}
+	char	pad_char;
 
-void ft_handle_padding(int width, int len, int left_align, int zero_pad)
-{
-    if (left_align)
-        return;
-
-    char pad_char = zero_pad;
-    
-    if (zero_pad)
-    pad_char = '0';
-    else
-    pad_char = ' ';
-    while (width-- > len)
-        ft_putchar(pad_char);
+	if (left_align)
+		return ;
+	pad_char = zero_pad;
+	if (zero_pad)
+		pad_char = '0';
+	else
+		pad_char = ' ';
+	while (width-- > len)
+		ft_putchar(pad_char);
 }
