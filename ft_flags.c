@@ -6,23 +6,23 @@
 /*   By: enpassel <enpassel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 14:51:30 by enpassel          #+#    #+#             */
-/*   Updated: 2024/11/14 15:36:03 by enpassel         ###   ########lyon.fr   */
+/*   Updated: 2024/11/15 09:52:39 by enpassel         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_parse_flags(const char **format, int *width, t_left_and_zero *laf)
+void	ft_parse_flags(const char **format, int *width, t_left_and_zero *laz)
 {
-	laf->left_align = 0;
-	laf->zero_pad = 0;
+	laz->left_align = 0;
+	laz->zero_pad = 0;
 	*width = 0;
 	while (**format == '-' || **format == '0')
 	{
 		if (**format == '-')
-			laf->left_align = 1;
+			laz->left_align = 1;
 		if (**format == '0')
-			laf->zero_pad = 1;
+			laz->zero_pad = 1;
 		(*format)++;
 	}
 }

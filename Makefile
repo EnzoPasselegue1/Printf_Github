@@ -1,22 +1,21 @@
 NAME = libftprintf.a
-SRCS = ft_flags.c ft_numbers.c ft_printf.c ft_strings.c \
-ft_utils.c ft_utils2.c main.c
-OBJDIR = .obj/
-OBJS = $(SRCS:%.c=$(OBJDIR)%.o)
+SRCS = ft_flags.c ft_numbers.c ft_printf.c ft_strings.c ft_utils.c ft_utils2.c
+
+OBJDIR = .obj
+OBJS = $(addprefix $(OBJDIR)/,$(SRCS:.c=.o))
 
 CC = cc
 CFLAGS = -Werror -Wextra -Wall
+AR = ar -rcs
+
+$(OBJDIR)/%.o: %.c ft_printf.h Makefile
+	@mkdir -p $(OBJDIR)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)
 
-$(OBJDIR)%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
-
-$(NAME): $(OBJDIR) $(OBJS)
-	ar -rcs $(OBJS) -o $@
-
-$(OBJDIR):
-	@mkdir -p $(OBJDIR)
+$(NAME): $(OBJS)
+	$(AR) $(NAME) $(OBJS)
 
 clean:
 	rm -rf $(OBJDIR)
@@ -27,4 +26,4 @@ fclean: clean
 re: fclean
 	make all
 
-.PHONY: all clean fclean re 
+.PHONY: all clean fclean re

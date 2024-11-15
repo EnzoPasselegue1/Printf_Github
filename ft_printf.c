@@ -41,25 +41,25 @@ int	ft_printf(const char *format, ...)
 int	ft_handle_conversion(const char **format, va_list args)
 {
 	int				width;
-	t_left_and_zero	laf;
+	t_left_and_zero	laz;
 
-	ft_parse_flags(format, &width, &laf);
+	ft_parse_flags(format, &width, &laz);
 	if (**format == 'c')
-		return (ft_handle_char(va_arg(args, int), width, laf.left_align,
-				laf.zero_pad));
+		return (ft_handle_char(va_arg(args, int), width, laz.left_align,
+				laz.zero_pad));
 	if (**format == 's')
-		return (ft_handle_string(va_arg(args, char *), width, laf.left_align));
+		return (ft_handle_string(va_arg(args, char *), width, laz.left_align));
 	if (**format == 'd' || **format == 'i')
-		return (ft_handle_int(va_arg(args, int), width, laf.left_align,
-				laf.zero_pad));
+		return (ft_handle_int(va_arg(args, int), width, laz.left_align,
+				laz.zero_pad));
 	if (**format == 'u')
 		return (ft_handle_unsigned(va_arg(args, unsigned int), width,
-				laf.left_align, laf.zero_pad));
+				laz.left_align, laz.zero_pad));
 	if (**format == 'x' || **format == 'X')
-		return (ft_handle_hex(va_arg(args, unsigned int), width, laf,
+		return (ft_handle_hex(va_arg(args, unsigned int), width, laz,
 				**format == 'X'));
 	if (**format == 'p')
-		return (ft_handle_pointer(va_arg(args, void *), width, laf.left_align));
+		return (ft_handle_pointer(va_arg(args, void *), width, laz.left_align));
 	if (**format == '%')
 		return (ft_putchar('%'));
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: enpassel <enpassel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 14:53:11 by enpassel          #+#    #+#             */
-/*   Updated: 2024/11/14 16:26:13 by enpassel         ###   ########lyon.fr   */
+/*   Updated: 2024/11/15 09:52:39 by enpassel         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,17 @@ int	ft_putnbr(int n)
 	return (len);
 }
 
-int	ft_handle_hex(unsigned int num, int width, t_left_and_zero laf,
+int	ft_handle_hex(unsigned int num, int width, t_left_and_zero laz,
 		int is_uppercase)
 {
 	int	len;
 
 	len = ft_numlen_hex(num);
-	if (!laf.left_align && width > len)
-		ft_handle_padding(width, len, laf.left_align, laf.zero_pad);
+	if (!laz.left_align && width > len)
+		ft_handle_padding(width, len, laz.left_align, laz.zero_pad);
 	len = ft_puthex(num, is_uppercase);
-	if (laf.left_align && width > len)
-		ft_handle_padding(width, len, laf.left_align, laf.zero_pad);
+	if (laz.left_align && width > len)
+		ft_handle_padding(width, len, laz.left_align, laz.zero_pad);
 	return (len);
 }
 
